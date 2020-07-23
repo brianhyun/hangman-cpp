@@ -3,9 +3,10 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include <stdio.h> 	// required for random number generator 
-#include <stdlib.h> // required for random number generator 
-#include <time.h>	// required for random number generator 
+#include <algorithm> 	// for find method
+#include <stdio.h> 		// required for random number generator 
+#include <stdlib.h> 	// required for random number generator 
+#include <time.h>		// required for random number generator 
 #include "wordListFunctions.h"
 
 int main() {
@@ -16,6 +17,7 @@ int main() {
 	using std::cin;
 	using std::cout;
 	using std::endl;
+	using std::find;
 
 	string wordFile = "word-list.txt";
 
@@ -32,6 +34,8 @@ int main() {
  
 	string secretWord = wordList[randomNumber];
 
+	// Check that all characters are lowercase. 
+
 	// Create a string that'll guide the user on their guesses. 
 	string guessString = "";
 
@@ -44,7 +48,7 @@ int main() {
 
 	int guesses = 10; 
 	int guessIteration = 1;
-	vector<char> guessedLetters(guesses);
+	vector<char> guessedLetters;
 	bool gotWord = false;
 
 	while (guesses > 0) {
@@ -54,13 +58,21 @@ int main() {
 		// Store user's guess in guessLetters vector
 		char letter; 
 		cin >> letter; 
+
+		// If user already guessed that letter, then prompt them to pick another one.
+		// Go back to beginning of while loop. 
+		if (find(guessedLetters.begin(), guessedLetters.end(), letter) != guessedLetters.end()) {
+			cout << "You already guessed that letter!" << endl;
+			cout << "Because I'm merciful, I'll let you pick another letter without it taking up one of your guesses!" << endl;
+			continue;
+		}
 		guessedLetters.push_back(letter);
 
 		int letterCount = 0;  
 
 		// See if letter exists in the word
-		for (int i = (guesses - 1); i < (guesses - 1) - guessIteration; i++) {
-			// If so then, reveal the location of the letter within the word and 
+		for (int i = 0; i < secretWord.length(); i++) {
+			// If so then, reveal the location of the letter. 
 			if (letter == secretWord[i]) {
 				guessString[i] = letter;
 				letterCount++;
@@ -91,6 +103,7 @@ int main() {
 		// User used a guess so reduce guesses count by one. 
 		guesses--;
 		guessIteration++;
+		cout << endl;
 	}
 
 	// Endgame Prompts
