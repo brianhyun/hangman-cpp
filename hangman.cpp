@@ -7,7 +7,10 @@
 #include <stdio.h> 		// required for random number generator 
 #include <stdlib.h> 	// required for random number generator 
 #include <time.h>		// required for random number generator 
+
+// personal libraries
 #include "wordListFunctions.h"
+#include "gamePrompts.h"
 
 int main() {
 	// namespace declarations
@@ -107,16 +110,7 @@ int main() {
 	}
 
 	// Endgame Prompts
-	if (gotWord == true) {
-		cout << "##################################" << endl;
-		cout << "Congratulations! You got the word!" << endl;
-		cout << "##################################" << endl;
-	} else {
-		cout << "##################################" << endl;
-		cout << "The word was " << secretWord << "." << endl;
-		cout << "Better luck next time!" << endl;
-		cout << "##################################" << endl;
-	}
+	endGamePrompt(gotWord, secretWord);
 
 	// Program successful completion
 	return 0; 
