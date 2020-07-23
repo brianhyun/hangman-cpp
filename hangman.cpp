@@ -19,11 +19,11 @@ int main() {
 
 	string wordFile = "word-list.txt";
 
-	int wordCount = numOfWordsInFile(wordFile);
+	int wordCount = numOfWords(wordFile);
 
 	string wordList[wordCount];
 
-	fillArrWithWordsFromFile(wordList, wordFile);
+	fillArr(wordList, wordFile);
 
 	// initialize random seed 
 	srand(time(NULL));
